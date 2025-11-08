@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export function Hero() {
@@ -10,17 +10,25 @@ export function Hero() {
     offset: ["start start", "end end"],
   });
 
-  const videoY = useTransform(scrollYProgress, [0, 1], ["100%", "0%"]);
+  // Map scrollYProgress to a linear Y transform
+  const videoYLinear = useTransform(scrollYProgress, [0, 1], ["100%", "0%"]);
+
+  // Apply spring for smooth easing
+  const videoY = useSpring(videoYLinear, {
+    stiffness: 20,   // Lower = slower response, more easing
+    damping: 30,     // Higher = less bounce
+    mass: 1,
+  });
+
   const overlayOpacity = useTransform(scrollYProgress, [0.2, 0.8], [0, 1]);
   const logoOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1]);
 
   return (
     <div className="relative w-full" id="home" ref={sectionRef}>
-      {/* === HERO SECTION === */}
       <section className="relative h-screen flex flex-col items-center justify-center text-center bg-black overflow-hidden px-4">
+        {/* Hero Text */}
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white leading-snug mb-8 max-w-6xl mx-auto break-words whitespace-normal">
-          A Complete{" "}
-          <span className="italic font-['Instrument_Serif']">System</span> for
+          A Complete <span className="italic font-['Instrument_Serif']">System</span> for
           Brands Ready to Scale.
         </h1>
 
@@ -45,7 +53,7 @@ export function Hero() {
           </a>
         </div>
 
-        {/* === DESKTOP VIDEO ANIMATION === */}
+        {/* Desktop Video */}
         <motion.div
           style={{ y: videoY }}
           className="absolute inset-0 z-10 will-change-transform hidden md:block"
@@ -60,7 +68,7 @@ export function Hero() {
             className="w-full h-full object-cover"
           />
 
-          {/* === SCALKIT TEXT ON VIDEO === */}
+          {/* Scalkit Text */}
           <motion.div
             style={{ opacity: logoOpacity }}
             className="absolute inset-0 flex items-center justify-center"
@@ -76,14 +84,14 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* === OVERLAY === */}
+        {/* Overlay */}
         <motion.div
           style={{ opacity: overlayOpacity }}
           className="absolute inset-0 bg-black/0 pointer-events-none z-20 hidden md:block"
         />
       </section>
 
-      {/* === STATIC VIDEO FOR MOBILE (BELOW HERO TEXT) === */}
+      {/* Mobile Video */}
       <div className="relative block md:hidden w-full h-[40vh] overflow-hidden">
         <video
           src="https://limitless-framer-template.s3.us-east-005.backblazeb2.com/Abstract+Objects.mp4"
@@ -94,8 +102,6 @@ export function Hero() {
           preload="auto"
           className="w-full h-full object-cover"
         />
-
-        {/* === SCALKIT TEXT OVERLAY FOR MOBILE === */}
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-5xl sm:text-6xl font-['Instrument_Serif'] tracking-tight">
             <span className="text-white font-['Instrument_Serif']">

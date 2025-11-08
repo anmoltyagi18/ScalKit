@@ -78,8 +78,8 @@ export function Cards() {
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
             <span className="text-sm font-medium text-white">WHO WE HELP</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium mb-6 leading-snug text-white max-w-4xl mx-auto break-words whitespace-normal">
-  Empowering bold <span className="italic font-['Instrument_Serif']">ideas</span> across industries.
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium mb-6 leading-tight text-white max-w-4xl mx-auto break-words whitespace-normal">
+  Empowering bold <span className="italic font-['Instrument_Serif']">ideas</span><br></br> across industries.
 </h2>
 
         </div>

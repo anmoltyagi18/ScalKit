@@ -39,9 +39,9 @@ export function FAQs() {
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
             <span className="text-sm font-medium text-white tracking-widest">FAQs</span>
           </div>
-          <h2 className="text-6xl md:text-7xl font-medium mb-6 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-medium mb-6 leading-tight">
             Got questions? Here's <span className="italic font-['Instrument_Serif']">everything</span><br />
-            you might want to know
+            you might want to know.
           </h2>
         </div>
 

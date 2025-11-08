@@ -21,7 +21,7 @@ export function Services() {
         'We build fast, reliable, and user-friendly websites and apps that make your brand look great and perform even better.',
       number: '01',
       gradient: 'from-blue-600 via-cyan-500 to-blue-400',
-      image: '/webapp.png',
+      image: '/1.png',
     },
     {
       icon: '🎨',
@@ -30,7 +30,7 @@ export function Services() {
         'We design clean, intuitive interfaces that make every interaction feel effortless and memorable.',
       number: '02',
       gradient: 'from-green-600 via-emerald-500 to-teal-400',
-      image: '/ui.png',
+      image: '/2.png',
     },
     {
       icon: '🖼️',
@@ -39,7 +39,7 @@ export function Services() {
         "From social posts to pitch decks, we create designs that look stunning and speak your brand's language.",
       number: '03',
       gradient: 'from-orange-600 via-yellow-500 to-amber-400',
-      image: '/gd.png',
+      image: '/3.png',
     },
     {
       icon: '✍️',
@@ -48,7 +48,7 @@ export function Services() {
         'We write content that connects. Clear, engaging, and built to make people stop scrolling.',
       number: '04',
       gradient: 'from-red-600 via-rose-500 to-pink-400',
-      image: '/cw.png',
+      image: '/4.png',
     },
     {
       icon: '📣',
@@ -57,7 +57,7 @@ export function Services() {
         'We help you define who you are, how you sound, and how you show up online and everywhere else.',
       number: '05',
       gradient: 'from-cyan-600 via-blue-500 to-teal-400',
-      image: '/mkt.png',
+      image: '/5.png',
     },
     {
       icon: '🎥',
@@ -66,7 +66,7 @@ export function Services() {
         'We craft videos that feel authentic, look stunning, and tell your story with impact.',
       number: '06',
       gradient: 'from-violet-600 via-fuchsia-500 to-pink-400',
-      image: '/vp.png',
+      image: '/6.png',
     },
   ];
 
@@ -81,11 +81,10 @@ export function Services() {
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
             <span className="text-sm font-medium text-white">OUR SERVICES</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium mb-6 leading-snug max-w-4xl mx-auto break-words whitespace-normal text-white">
-            From idea to{' '}
-            <span className="italic font-['Instrument_Serif']">execution</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium mb-6 leading-tight max-w-4xl mx-auto break-words whitespace-normal text-white">
+            From idea to <span className="italic font-['Instrument_Serif']">execution,</span>
             <br />
-            we've got you covered
+            we've got you covered.
           </h2>
         </div>
 
@@ -102,7 +101,8 @@ export function Services() {
                   : 'hover:bg-white/5'
               }`}
             >
-              <div className="flex items-center gap-4 md:gap-8 flex-1 w-full">
+              {/* Text & Number */}
+              <div className="flex items-center gap-4 md:gap-8 flex-1 w-full z-10">
                 <span className="text-gray-500 text-lg font-light min-w-[2.5rem] md:min-w-[3rem]">
                   {service.number}
                 </span>
@@ -111,18 +111,15 @@ export function Services() {
                 </h3>
               </div>
 
-              {/* === Description === */}
-              {/* Desktop view (unchanged) */}
-              <p className="text-gray-300 text-lg md:text-xl leading-relaxed flex-1 hidden md:block max-w-2xl">
+              {/* Description */}
+              <p className="text-gray-300 text-lg md:text-xl leading-relaxed flex-1 hidden md:block z-10 max-w-2xl">
+                {service.description}
+              </p>
+              <p className="text-gray-400 text-base leading-relaxed mt-2 md:hidden z-10">
                 {service.description}
               </p>
 
-              {/* Mobile view (newly added) */}
-              <p className="text-gray-400 text-base leading-relaxed mt-2 md:hidden">
-                {service.description}
-              </p>
-
-              {/* === Centered Overlay Image (desktop only) === */}
+              {/* Hover Overlay Image (Desktop Only) */}
               <AnimatePresence>
                 {hoveredService === index && (
                   <motion.div
@@ -131,13 +128,13 @@ export function Services() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
                   >
-                    <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                    <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-black/20">
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover opacity-90"
+                        className="w-full h-full object-cover opacity-100"
                       />
                     </div>
                   </motion.div>

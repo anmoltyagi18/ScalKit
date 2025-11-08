@@ -116,9 +116,9 @@ export function Testimonials() {
             <span className="text-sm font-medium text-white tracking-widest">TESTIMONIALS</span>
           </div>
 
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-medium leading-tight text-white mb-10 md:mb-8">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium leading-tight text-white mb-10 md:mb-8">
             Trusted by{' '}
-            <span className="italic font-['Instrument_Serif']">teams</span> around the world
+            <span className="italic font-['Instrument_Serif']">teams</span> around the world.
           </h2><br></br>
 
           {/* ======= Animated Stats ======= */}

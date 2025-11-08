@@ -33,7 +33,7 @@ export function WhyChooseUs() {
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
             <span className="text-sm font-medium text-white tracking-widest">WHY CHOOSE US</span>
           </div>
-          <h2 className="text-6xl md:text-7xl font-medium mb-6 leading-tight">
+          <h2 className="text-5xl md:text-6xl font-medium mb-6 leading-tight">
             We don't just work for your brand,<br />
             we <span className="italic font-['Instrument_Serif']">grow</span> it with you.
           </h2>
