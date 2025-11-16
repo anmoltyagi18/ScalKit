@@ -28,7 +28,7 @@ export function WhyChooseUs() {
 
   return (
     <div className="max-w-7xl mx-auto px-6">
-      <section id="why-us" className="py-20 relative min-h-screen flex flex-col justify-center">
+      <section id="why-us" className="scroll-mt-28 py-20 relative min-h-screen flex flex-col justify-center">
         <div className="text-center mb-20">
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
             <span className="text-sm font-medium text-white tracking-widest">WHY CHOOSE US</span>

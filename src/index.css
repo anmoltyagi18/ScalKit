@@ -16,3 +16,6 @@
     @apply font-dm-sans font-semibold;
   }
 }
+html {
+  scroll-behavior: smooth;
+}

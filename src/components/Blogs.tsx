@@ -9,13 +9,57 @@ interface Insight {
   dark: boolean;
 }
 
+function Card({ insight, index }: { insight: Insight; index: number }) {
+  return (
+    <div
+      className={`group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col ${
+        insight.dark
+          ? 'bg-black border border-gray-800'
+          : 'bg-white/5 border border-gray-700'
+      }`}
+    >
+      {/* Image Section */}
+      <div className={index % 2 === 0 ? 'order-2' : 'order-1'}>
+        <div className="relative h-[400px] overflow-hidden">
+          <img
+            src={insight.image}
+            alt={insight.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+            <span className="text-sm text-white/80">Read Article →</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Text Section */}
+      <div
+        className={`p-6 ${
+          insight.dark ? 'bg-black' : 'bg-white/5'
+        } ${index % 2 === 0 ? 'order-1' : 'order-2'}`}
+      >
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-xs font-medium text-gray-400 uppercase tracking-widest">
+            {insight.category}
+          </span>
+          <span className="text-xs text-gray-500">•</span>
+          <span className="text-xs text-gray-500">{insight.readTime}</span>
+        </div>
+
+        <h3 className="text-xl font-light leading-tight text-white">
+          {insight.title}
+        </h3>
+      </div>
+    </div>
+  );
+}
+
 export function Blogs() {
   const insights: Insight[] = [
     {
       id: 1,
       title: 'Why People Leave Your Website in 10 Seconds (and How to Make Them Stay)',
-      image:
-        '/wb.png',
+      image: '/wb.png',
       category: 'Web Design',
       readTime: '5 min read',
       dark: false,
@@ -31,9 +75,8 @@ export function Blogs() {
     },
     {
       id: 3,
-      title: "The Psychology of Selling on Instagram: How to Make People Want What You Offer",
-      image:
-        '/mb.png',
+      title: 'The Psychology of Selling on Instagram: How to Make People Want What You Offer',
+      image: '/mb.png',
       category: 'Social Media',
       readTime: '6 min read',
       dark: true,
@@ -44,8 +87,9 @@ export function Blogs() {
     <div className="max-w-7xl mx-auto px-6">
       <section
         id="insights"
-        className="py-20 relative min-h-screen flex flex-col justify-center"
+        className="scroll-mt-28 py-20 relative min-h-screen flex flex-col justify-center"
       >
+        {/* Heading */}
         <div className="text-center mb-12">
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
             <span className="text-sm font-medium text-white tracking-widest">
@@ -59,56 +103,28 @@ export function Blogs() {
           </h2>
         </div>
 
-        {/* Blog Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mt-12">
+        {/* ---- DESKTOP GRID (lg and above) ---- */}
+        <div
+          className="
+            hidden
+            lg:grid
+            grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+            gap-8 max-w-7xl mx-auto mt-12
+          "
+        >
+          {insights.map((insight, index) => (
+            <Card insight={insight} index={index} key={insight.id} />
+          ))}
+        </div>
+
+        {/* ---- MOBILE + TABLET SWIPER (below lg) ---- */}
+        <div className="lg:hidden overflow-x-auto snap-x snap-mandatory flex gap-6 px-2 mt-12 no-scrollbar">
           {insights.map((insight, index) => (
             <div
               key={insight.id}
-              className={`group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col ${
-                insight.dark
-                  ? 'bg-black border border-gray-800'
-                  : 'bg-white/5 border border-gray-700'
-              }`}
+              className="snap-center min-w-[88%] max-w-[88%]"
             >
-              {/* Image Section */}
-              <div className={index % 2 === 0 ? 'order-2' : 'order-1'}>
-                <div className="relative h-[420px] overflow-hidden">
-                  <img
-                    src={insight.image}
-                    alt={insight.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="text-sm text-white/80">
-                      Read Article →
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Text Section */}
-              <div
-                className={`p-6 ${
-                  insight.dark ? 'bg-black' : 'bg-white/5'
-                } ${index % 2 === 0 ? 'order-1' : 'order-2'}`}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-xs font-medium text-gray-400 uppercase tracking-widest">
-                    {insight.category}
-                  </span>
-                  <span className="text-xs text-gray-500">•</span>
-                  <span className="text-xs text-gray-500">
-                    {insight.readTime}
-                  </span>
-                </div>
-                <h3
-                  className={`text-xl font-light leading-tight ${
-                    insight.dark ? 'text-white' : 'text-white'
-                  }`}
-                >
-                  {insight.title}
-                </h3>
-              </div>
+              <Card insight={insight} index={index} />
             </div>
           ))}
         </div>

@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useInView, animate } from 'framer-motion';
-import { FaUserCircle } from 'react-icons/fa'; 
+import { motion, useScroll, useInView, animate } from 'framer-motion';
+import { FaUserCircle } from 'react-icons/fa';
 
 interface Testimonial {
   name: string;
@@ -50,7 +50,7 @@ export function Testimonials() {
   ];
 
   // --------------------------
-  // Animated Numbers Section
+  // Animated Stats
   // --------------------------
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true });
@@ -79,31 +79,6 @@ export function Testimonials() {
     }
   }, [statsInView]);
 
-  // --------------------------
-  // Testimonial Card Transforms (desktop only)
-  // --------------------------
-  const card1Rotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -5, 0]);
-  const card2Rotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -3, 0]);
-  const card3Rotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, 3, 0]);
-  const card4Rotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, 5, 0]);
-
-  const card1X = useTransform(scrollYProgress, [0, 0.5, 1], [0, -300, 0]);
-  const card2X = useTransform(scrollYProgress, [0, 0.5, 1], [0, -100, 0]);
-  const card3X = useTransform(scrollYProgress, [0, 0.5, 1], [0, 100, 0]);
-  const card4X = useTransform(scrollYProgress, [0, 0.5, 1], [0, 300, 0]);
-
-  const card1Y = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0, 0]);
-  const card2Y = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, 60]);
-  const card3Y = useTransform(scrollYProgress, [0, 0.5, 1], [120, 0, 120]);
-  const card4Y = useTransform(scrollYProgress, [0, 0.5, 1], [180, 0, 180]);
-
-  const cardTransforms = [
-    { x: card1X, y: card1Y, rotate: card1Rotate },
-    { x: card2X, y: card2Y, rotate: card2Rotate },
-    { x: card3X, y: card3Y, rotate: card3Rotate },
-    { x: card4X, y: card4Y, rotate: card4Rotate },
-  ];
-
   return (
     <div className="max-w-7xl mx-auto px-6">
       <section
@@ -119,7 +94,7 @@ export function Testimonials() {
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium leading-tight text-white mb-10 md:mb-8">
             Trusted by{' '}
             <span className="italic font-['Instrument_Serif']">teams</span> around the world.
-          </h2><br></br>
+          </h2><br />
 
           {/* ======= Animated Stats ======= */}
           <div
@@ -134,6 +109,7 @@ export function Testimonials() {
                 Brands scaled with us
               </p>
             </div>
+
             <div className="flex flex-col items-center">
               <div className="text-5xl md:text-6xl font-emphasis text-white mb-2">
                 {projects}+
@@ -142,6 +118,7 @@ export function Testimonials() {
                 Projects successfully delivered
               </p>
             </div>
+
             <div className="flex flex-col items-center">
               <div className="text-5xl md:text-6xl font-emphasis text-white mb-2">
                 {retention}%
@@ -153,51 +130,57 @@ export function Testimonials() {
           </div>
         </div>
 
-        {/* ======= DESKTOP TESTIMONIALS ======= */}
-        <div className="relative hidden md:flex h-[550px] items-center justify-center">
-          <div className="relative w-full max-w-md mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                style={{
-                  x: cardTransforms[index].x,
-                  y: cardTransforms[index].y,
-                  rotate: cardTransforms[index].rotate,
-                }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl">
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-full bg-white/15 flex items-center justify-center text-xl flex-shrink-0">
-                      {testimonial.image}
-                    </div>
-                    <div className="flex gap-0.5">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-white text-base">
-                          ★
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+        {/* ===========================================================
+            DESKTOP TESTIMONIALS — MARQUEE ANIMATION
+        ============================================================ */}
+        <div className="relative hidden md:flex overflow-hidden py-10">
+          <motion.div
+            className="flex gap-10"
+            animate={{ x: ["0%", "-100%"] }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 90,
+                ease: "linear",
+              },
+            }}
+          >
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
+             <div
+  key={index}
+  className="min-w-[450px] h-[380px] bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl flex flex-col justify-between"
+>
+  <div>
+    <div className="flex items-start gap-4 mb-6">
+      <div className="w-14 h-14 rounded-full bg-white/15 flex items-center justify-center text-xl flex-shrink-0">
+        {testimonial.image}
+      </div>
 
-                  <p className="text-gray-200 text-sm leading-relaxed mb-8">
-                    {testimonial.text}
-                  </p>
+      <div className="flex gap-0.5">
+        {[...Array(testimonial.rating)].map((_, i) => (
+          <span key={i} className="text-white text-base">★</span>
+        ))}
+      </div>
+    </div>
 
-                  <div className="pt-6 border-t border-white/10">
-                    <p className="text-white font-semibold italic text-sm">
-                      {testimonial.name}
-                    </p>
-                    {testimonial.role && (
-                      <p className="text-gray-400 text-xs italic">
-                        {testimonial.role}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+    <p className="text-gray-200 text-md leading-relaxed mb-8">
+      {testimonial.text}
+    </p>
+  </div>
+
+  <div className="pt-6 border-t border-white/10">
+    <p className="text-white font-semibold italic text-md">
+      {testimonial.name}
+    </p>
+    {testimonial.role && (
+      <p className="text-gray-400 text-xs italic">{testimonial.role}</p>
+    )}
+  </div>
+</div>
+
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* ======= MOBILE TESTIMONIALS ======= */}
@@ -211,11 +194,10 @@ export function Testimonials() {
                 <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-xl flex-shrink-0">
                   {testimonial.image}
                 </div>
+
                 <div className="flex gap-0.5">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-white text-sm">
-                      ★
-                    </span>
+                    <span key={i} className="text-white text-sm">★</span>
                   ))}
                 </div>
               </div>
@@ -229,14 +211,13 @@ export function Testimonials() {
                   {testimonial.name}
                 </p>
                 {testimonial.role && (
-                  <p className="text-gray-400 text-xs italic">
-                    {testimonial.role}
-                  </p>
+                  <p className="text-gray-400 text-xs italic">{testimonial.role}</p>
                 )}
               </div>
             </div>
           ))}
         </div>
+
       </section>
     </div>
   );

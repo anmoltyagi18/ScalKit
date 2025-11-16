@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
+
 import {
   Navbar,
   Hero,
@@ -35,6 +37,8 @@ function Home() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />  {/* ← FIX ADDED HERE */}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/book-a-call" element={<BookingPage />} />

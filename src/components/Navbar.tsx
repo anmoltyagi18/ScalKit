@@ -14,7 +14,7 @@ export function Navbar() {
 
   return (
     <>
-      {/* ===================== DESKTOP NAVBAR (Unchanged) ===================== */}
+      {/* ===================== DESKTOP NAVBAR ===================== */}
       <nav
         className={`hidden lg:flex sticky top-8 z-50 justify-center transition-all duration-300 ${
           isScrolled ? 'scale-[1.02]' : ''
@@ -61,8 +61,8 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* ===================== MOBILE NAVBAR (Only Hamburger) ===================== */}
-      <nav className="lg:hidden fixed top-0 left-0 w-full z-50 bg-transparent px-6 py-4 flex justify-end">
+      {/* ===================== MOBILE NAVBAR ===================== */}
+      <nav className="lg:hidden fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-end">
         <button
           className="text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -70,34 +70,43 @@ export function Navbar() {
           {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
         </button>
 
-        {/* Dropdown Menu */}
+        {/* Full-Screen Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="absolute top-full right-4 mt-2 bg-black/95 border border-gray-700 rounded-xl shadow-lg w-48 py-4 backdrop-blur-md">
-            <div className="flex flex-col items-start space-y-3 px-4">
-              {[
-                { href: '#about', label: 'About' },
-                { href: '#services', label: 'Services' },
-                { href: '#why-us', label: 'Why Us' },
-                { href: '#insights', label: 'Insights' },
-              ].map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-base text-gray-300 hover:text-white transition-colors font-['DM_Sans']"
-                >
-                  {link.label}
-                </a>
-              ))}
+          <div className="fixed inset-0 bg-black/95 backdrop-blur-lg flex flex-col items-center justify-center space-y-8 z-40">
 
-              <Link
-                to="/book-a-call"
+            {/* Close Button */}
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute top-6 right-6 text-white"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Nav Links */}
+            {[
+              { href: '#about', label: 'About' },
+              { href: '#services', label: 'Services' },
+              { href: '#why-us', label: 'Why Us' },
+              { href: '#insights', label: 'Insights' },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="bg-[#6214d9] hover:bg-[#6214d9]/90 text-white px-4 py-2 rounded-full transition-colors text-sm font-['DM_Sans'] w-full text-center"
+                className="text-3xl font-semibold text-white hover:text-gray-300 transition-all font-['DM_Sans']"
               >
-                Book a Call
-              </Link>
-            </div>
+                {link.label}
+              </a>
+            ))}
+
+            {/* CTA Button */}
+            <Link
+              to="/book-a-call"
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-[#6214d9] hover:bg-[#6214d9]/90 text-white px-6 py-3 rounded-full text-xl transition-all font-['DM_Sans']"
+            >
+              Book a Call
+            </Link>
           </div>
         )}
       </nav>
